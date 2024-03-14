@@ -1,0 +1,139 @@
+.table1 {
+  border: 2px solid #3498db;
+  padding: 20px;
+  margin: 20px;
+  float: left;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  width: 330px;
+  text-align: center;
+}
+
+h2 {
+  color: #3498db;
+  font-size: 24px;
+}
+
+/* Gaya untuk tombol "Free" */
+.start-forward-btn {
+  background-color: #2ecc71;
+  /* Warna hijau */
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.start-forward-btn:hover {
+  background-color: #27ae60;
+  /* Warna hijau gelap saat dihover */
+}
+
+/* Gaya untuk tombol "Stop Maju" */
+.stop-forward-btn {
+  background-color: #e74c3c;
+  /* Warna merah */
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.stop-forward-btn:hover {
+  background-color: #c0392b;
+  /* Warna merah gelap saat dihover */
+}
+
+.fnb-btn {
+  background-color: #ffa40b;
+  /* Warna merah */
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.fnb-btn:hover {
+  background-color: #ff8c0b;
+  /* Warna merah gelap saat dihover */
+}
+
+.start-form {
+  font-size: 16px;
+}
+
+select,
+.waktu-input,
+.nama-input {
+  font-size: 16px;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.timer {
+  font-size: 36px;
+  /* Ukuran timer lebih besar */
+  color: #e74c3c;
+  margin-bottom: 1px;
+  font-weight: bold;
+}
+
+input[type="submit"] {
+  background-color: #3498db;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #2980b9;
+}
+
+.start-form {
+  font-size: 16px;
+}
+
+/* Menggeser tombol ke sebelah kiri */
+.start-form button {
+  margin-left: 10px;
+  /* Atur jarak antara tombol dan input jika diperlukan */
+}
+
+/* Gaya input teks */
+.start-form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Gaya select */
+.start-form select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Gaya input angka */
+.start-form input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
