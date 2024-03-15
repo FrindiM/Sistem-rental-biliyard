@@ -1,5 +1,5 @@
 <?php
-require 'config.php';
+require '../config.php';
 
 $bulan_tes = array(
     '01' => "Januari",
@@ -25,9 +25,13 @@ if (!empty($_GET['cari'])) {
     $sql = "SELECT * FROM waktu_meja WHERE DATE(tanggal) >= '$periode' AND DATE(tanggal) < LAST_DAY('$periode') + INTERVAL 1 DAY";
 } elseif (!empty($_GET['hari'])) {
     echo "Data Laporan Penjualan " . $_GET['tgl'];
+    echo "<br>Meja: " . $_GET['meja'];
+    echo "<br>Nama Kasir: " . $_GET['kasir'];
     $hari = $_GET['tgl'];
-    $sql = "SELECT * FROM waktu_meja WHERE DATE(tanggal) = '$hari'";
-    $sql2 = "SELECT * FROM rekap_tambahan WHERE DATE(tgl) = '$hari'";
+    $meja = $_GET['meja'];
+    $kasir = $_GET['kasir'];
+    $sql = "SELECT * FROM waktu_meja WHERE DATE(tanggal) = '$hari' AND kasir = '$kasir' AND nomor_meja = '$meja'";
+    $sql2 = "SELECT * FROM rekap_tambahan WHERE DATE(tgl) = '$hari' AND nama_kasir = '$kasir' AND nomor_meja = '$meja'";
 } else {
     echo "Data Laporan Penjualan " . $bulan_tes[date('m')] . " " . date('Y');
     $sql = "SELECT * FROM waktu_meja";

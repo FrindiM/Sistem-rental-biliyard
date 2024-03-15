@@ -26,7 +26,7 @@ async function disconnect() {
   }
 }
 
-console.log("kabaka")
+console.log("gaga")
 
 $(document).ready(function () {
   // Mengaktifkan tombol berdasarkan ID
@@ -678,61 +678,121 @@ $(document).ready(function () {
 
   $(".btnLaporan").on("click", function () {
     let user = $(this).data("user");
-    console.log("halo");
+    $("#namaUser").val(user);
+    console.log("open modal");
     $("#exampleModalLongTitle").text(user + " Laporan");
-    $("#tanggalInput").change(function () {
-      var selectedDate = $(this).val(); // Mendapatkan tanggal yang dipilih
-      console.log("Tanggal yang dipilih:", selectedDate);
-      $.ajax({
-        type: "POST",
-        url: "fungsi/get_laporan.php",
-        data: {
-          user: user,
-          date: selectedDate,
-        },
-        success: function (response) {
-          // Mengonversi respons JSON menjadi objek JavaScript
-          var parsedResponse = JSON.parse(response);
+    $("#cariLaporan").click(function () {
+      let selectedDate = $("#tanggalInput").val(); // Mendapatkan tanggal yang dipilih
+      let selectedTable = $("#selectMeja").val();
+      console.log(selectedTable);
+      if (selectedTable === "all") {
+        console.log('semua');
+        if (selectedDate !== "") {
+          // console.log("Tanggal yang dipilih:", selectedDate);
+          $.ajax({
+            type: "POST",
+            url: "fungsi/get_laporan.php",
+            data: {
+              user: user,
+              date: selectedDate,
+            },
+            success: function (response) {
+              // Mengonversi respons JSON menjadi objek JavaScript
+              let parsedResponse = JSON.parse(response);
 
-          // Memeriksa apakah respons JSON berisi data atau tidak
-          if (parsedResponse.info && parsedResponse.info === 'kosong') {
-            // Menampilkan pesan bahwa data kosong
-            $(".body-laporan").html("<p>Data kosong</p>");
-          } else {
-            // Memformat data JSON sesuai kebutuhan Anda dan menambahkannya ke dalam elemen HTML
-            var htmlContent = "<table class'table' border='1'><tr><th>Tanggal</th><th>Meja</th><th>Nama</th><th>Paket</th><th>Waktu(M)</th><th>Item Tambahan</th><th>Total Bayar</th></tr>";
-            parsedResponse.forEach(function (item) {
-              htmlContent += "<tr><td>" + item.tanggal + "</td><td>" + item.nomor_meja + "</td><td>" + item.nama + "</td><td>" + item.id_paket + "</td><td>" + item.waktu + "</td><td>" + item.nama_item + "</td><td>" + item.total_bayar + "</td></tr>";
-            });
-            htmlContent += "</table>";
+              // Memeriksa apakah respons JSON berisi data atau tidak
+              if (parsedResponse.info && parsedResponse.info === 'kosong') {
+                // Menampilkan pesan bahwa data kosong
+                $(".body-laporan").html("<p>Data kosong</p>");
+              } else {
+                // Memformat data JSON sesuai kebutuhan Anda dan menambahkannya ke dalam elemen HTML
+                let htmlContent = "<table class'table' border='1'><tr><th>Tanggal</th><th>Meja</th><th>Nama</th><th>Paket</th><th>Waktu(M)</th><th>Item Tambahan</th><th>Total Bayar</th></tr>";
+                parsedResponse.forEach(function (item) {
+                  htmlContent += "<tr><td>" + item.tanggal + "</td><td>" + item.nomor_meja + "</td><td>" + item.nama + "</td><td>" + item.id_paket + "</td><td>" + item.waktu + "</td><td>" + item.nama_item + "</td><td>" + item.total_bayar + "</td></tr>";
+                });
+                htmlContent += "</table>";
 
-            // Menambahkan konten HTML ke dalam elemen ".body-laporan"
-            $(".body-laporan").html(htmlContent);
-          }
+                // Menambahkan konten HTML ke dalam elemen ".body-laporan"
+                $(".body-laporan").html(htmlContent);
+              }
+            }
+          });
+        } else {
+          console.log('Tanggal kosong');
+          $(".body-laporan").html("<p>Masukan Tanggal</p>");
         }
-      });
+      } else {
+        console.log('angka');
+        if (selectedDate !== "") {
+          console.log(selectedDate);
+          $.ajax({
+            type: "post",
+            url: "fungsi/get_laporan_meja.php",
+            data: {
+              user: user,
+              date: selectedDate,
+              tabel: selectedTable,
+            },
+            dataType: "json",
+            success: function (response) {
+              if (response.info && response.info === 'kosong') {
+                // Menampilkan pesan bahwa data kosong
+                $(".body-laporan").html("<p>Data kosong</p>");
+              } else {
+                // Memformat data JSON sesuai kebutuhan Anda dan menambahkannya ke dalam elemen HTML
+                let htmlContent = "<table class'table' border='1'><tr><th>Tanggal</th><th>Meja</th><th>Nama</th><th>Paket</th><th>Waktu(M)</th><th>Item Tambahan</th><th>Total Bayar</th></tr>";
+                response.forEach(function (item) {
+                  htmlContent += "<tr><td>" + item.tanggal + "</td><td>" + item.nomor_meja + "</td><td>" + item.nama + "</td><td>" + item.id_paket + "</td><td>" + item.waktu + "</td><td>" + item.nama_item + "</td><td>" + item.total_bayar + "</td></tr>";
+                });
+                htmlContent += "</table>";
+
+                // Menambahkan konten HTML ke dalam elemen ".body-laporan"
+                $(".body-laporan").html(htmlContent);
+              }
+            }
+          });
+        } else {
+          console.log('Tanggal Kosong');
+          $(".body-laporan").html("<p>Masukan Tanggal</p>");
+        }
+      }
+
     });
 
   });
 
   $(".btnPrintLaporan").on("click", function () {
-    var selectedDate = $("#tanggalInput").val();
-    var cari = "cek";
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
-    var tgl = yyyy + '-' + mm + '-' + dd;
-    var url = "cetak.php?hari=" + encodeURIComponent(cari) + "&tgl=" + encodeURIComponent(selectedDate);
-    window.open(url, '_blank');
+    let user = $("#namaUser").val();
+    let selectedDate = $("#tanggalInput").val();
+    let selectedTable = $("#selectMeja").val();
+    if (selectedTable === "all") {
+      let cari = "cek";
+      let today = new Date();
+      let dd = String(today.getDate()).padStart(2, '0');
+      let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      let yyyy = today.getFullYear();
+      let tgl = yyyy + '-' + mm + '-' + dd;
+      let url = "fungsi/cetak.php?all=" + encodeURIComponent(cari) + "&tgl=" + encodeURIComponent(selectedDate) + "&meja=" + encodeURIComponent(selectedTable) + "&kasir=" + encodeURIComponent(user);
+      window.open(url, '_blank');
+
+    } else {
+      let cari = "cek";
+      let today = new Date();
+      let dd = String(today.getDate()).padStart(2, '0');
+      let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      let yyyy = today.getFullYear();
+      let tgl = yyyy + '-' + mm + '-' + dd;
+      let url = "fungsi/cetak_meja.php?hari=" + encodeURIComponent(cari) + "&tgl=" + encodeURIComponent(selectedDate) + "&meja=" + encodeURIComponent(selectedTable) + "&kasir=" + encodeURIComponent(user);
+      window.open(url, '_blank');
+    }
   });
 
 
   $(".minuman-select").on("change", function () {
-    var nomormeja = document.querySelector(".nomor");
-    var nilainomor = nomormeja.value;
+    let nomormeja = document.querySelector(".nomor");
+    let nilainomor = nomormeja.value;
     console.log(nilainomor);
-    var selectednama = $(this).find("option:selected").text();
+    let selectednama = $(this).find("option:selected").text();
     console.log(selectednama);
     getbillminuman(selectednama);
   });
@@ -869,7 +929,7 @@ $(document).ready(function () {
 
     // Membuat URL dengan parameter yang diambil dari formulir
     var printURL =
-      "print.php?nomor=" +
+      "fungsi/print.php?nomor=" +
       nomormeja +
       "&nama=" +
       nama +

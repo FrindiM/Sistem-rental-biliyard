@@ -84,10 +84,12 @@
  									<i class="fa fa-refresh"></i> Refresh</a>
 
  								<?php if (!empty($_GET['cari'])) { ?>
- 									<a href="excel.php?cari=yes&bln=<?= $_POST['bln']; ?>&thn=<?= $_POST['thn']; ?>" class="btn btn-info"><i class="fa fa-download"></i>
+ 									<a href="fungsi/excel.php?cari=yes&bln=<?= $_POST['bln']; ?>&thn=<?= $_POST['thn']; ?>" class="btn btn-info"><i class="fa fa-download"></i>
  										Excel</a>
+ 									<a target="_blank" href="fungsi/cetak.php?cari=yes&bln=<?= $_POST['bln']; ?>&thn=<?= $_POST['thn']; ?>" class="btn btn-primary"><i class="fa fa-download"></i>
+ 										Cetak</a>
  								<?php } else { ?>
- 									<a href="excel.php" class="btn btn-info"><i class="fa fa-download"></i>
+ 									<a href="fungsi/excel.php" class="btn btn-info"><i class="fa fa-download"></i>
  										Excel</a>
  								<?php } ?>
  							</td>
@@ -117,12 +119,12 @@
  									<i class="fa fa-refresh"></i> Refresh</a>
 
  								<?php if (!empty($_GET['hari'])) { ?>
- 									<a href="excel.php?hari=cek&tgl=<?= $_POST['hari']; ?>" class="btn btn-info"><i class="fa fa-download"></i>
+ 									<a href="fungsi/excel.php?hari=cek&tgl=<?= $_POST['hari']; ?>" class="btn btn-info"><i class="fa fa-download"></i>
  										Excel</a>
- 									<a target="_blank" href=" cetak.php?hari=cek&tgl=<?= $_POST['hari']; ?>" class="btn btn-primary"><i class="fa fa-download"></i>
+ 									<a target="_blank" href=" fungsi/cetak.php?hari=cek&tgl=<?= $_POST['hari']; ?>" class="btn btn-primary"><i class="fa fa-download"></i>
  										Cetak</a>
  								<?php } else { ?>
- 									<a href="excel.php" class="btn btn-info"><i class="fa fa-download"></i>
+ 									<a href="fungsi/excel.php" class="btn btn-info"><i class="fa fa-download"></i>
  										Excel</a>
  								<?php } ?>
  							</td>

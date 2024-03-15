@@ -203,9 +203,33 @@ date_default_timezone_set('Asia/Makassar');
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="container">
-                    <label for="tanggalInput">Pilih Tanggal:</label>
-                    <input type="date" id="tanggalInput" name="tanggalInput">
+                <div class="container ">
+                    <div class="row">
+                        <div class="col col-5">
+                            <label for="selectMeja">Pilih Meja:</label>
+                            <select id="selectMeja" class="form-control selectMeja">
+                                <option value="all" selected>All</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="col col-5">
+                            <label for="tanggalInput">Pilih Tanggal:</label>
+                            <input type="date" id="tanggalInput" name="tanggalInput" class="form-control">
+                        </div>
+                        <div class="col col-2">
+                            <br><button class="btn btn-success mt-1" id="cariLaporan">Lihat</button>
+                        </div>
+                        <input type="hidden" id="namaUser" name="namaUser">
+                    </div>
                 </div>
                 <div class="modal-body body-laporan">
                     ...

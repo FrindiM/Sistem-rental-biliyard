@@ -82,15 +82,14 @@
  								</button>
  								<a href="admin.php?page=tambahan" class="btn btn-success">
  									<i class="fa fa-refresh"></i> Refresh</a>
-								
-								<?php if(!empty($_GET['cari'])){?>
-								<a href="excel2.php?cari=yes&bln=<?=$_POST['bln'];?>&thn=<?=$_POST['thn'];?>"
-									class="btn btn-info"><i class="fa fa-download"></i>
-									Excel</a>
-								<?php }else{?>
-								<a href="excel2.php" class="btn btn-info"><i class="fa fa-download"></i>
-									Excel</a>
-								<?php }?>
+
+ 								<?php if (!empty($_GET['cari'])) { ?>
+ 									<a href="fungsi/excel2.php?cari=yes&bln=<?= $_POST['bln']; ?>&thn=<?= $_POST['thn']; ?>" class="btn btn-info"><i class="fa fa-download"></i>
+ 										Excel</a>
+ 								<?php } else { ?>
+ 									<a href="fungsi/excel2.php" class="btn btn-info"><i class="fa fa-download"></i>
+ 										Excel</a>
+ 								<?php } ?>
  							</td>
  						</tr>
  					</table>
@@ -117,14 +116,13 @@
  								<a href="admin.php?page=laporan" class="btn btn-success">
  									<i class="fa fa-refresh"></i> Refresh</a>
 
-								<?php if(!empty($_GET['hari'])){?>
-								<a href="excel2.php?hari=cek&tgl=<?= $_POST['hari'];?>" class="btn btn-info"><i
-										class="fa fa-download"></i>
-									Excel</a>
-								<?php }else{?>
-								<a href="excel2.php" class="btn btn-info"><i class="fa fa-download"></i>
-									Excel</a>
-								<?php }?>
+ 								<?php if (!empty($_GET['hari'])) { ?>
+ 									<a href="fungsi/excel2.php?hari=cek&tgl=<?= $_POST['hari']; ?>" class="btn btn-info"><i class="fa fa-download"></i>
+ 										Excel</a>
+ 								<?php } else { ?>
+ 									<a href="fungsi/excel2.php" class="btn btn-info"><i class="fa fa-download"></i>
+ 										Excel</a>
+ 								<?php } ?>
  							</td>
  						</tr>
  					</table>
@@ -144,10 +142,10 @@
  								<th style="width:10%;"> Nomor Meja</th>
  								<th> Nama Item</th>
  								<th> Jumlah</th>
-								 <th> Nama Pemain</th>
-								 <th> Nama Kasir</th>
+ 								<th> Nama Pemain</th>
+ 								<th> Nama Kasir</th>
  								<th> Tanggal Input</th>
-								<th> Opsi</th>
+ 								<th> Opsi</th>
  							</tr>
  						</thead>
  						<tbody>
@@ -155,7 +153,7 @@
 								$no = 1;
 								if (!empty($_GET['cari'])) {
 									$bulanTahunForm = $_POST['bln'] . '-' . $_POST['thn'];
-									$no=1;
+									$no = 1;
 									// Konversi nilai bulan dan tahun ke dalam format yang sesuai dengan kolom datetime
 									$periode = date('Y-m-d', strtotime('01-' . $bulanTahunForm));
 
@@ -164,11 +162,11 @@
 									$hasil = $db->query($sql);
 								} elseif (!empty($_GET['hari'])) {
 									$hari = $_POST['hari'];
-									$no=1;
+									$no = 1;
 									$sql = "SELECT * FROM rekap_tambahan WHERE DATE(tgl) = '$hari'";
 									$hasil = $db->query($sql);
 								} else {
-									$no=1;
+									$no = 1;
 									$sql = "SELECT * FROM rekap_tambahan";
 
 									// Eksekusi kueri
@@ -188,12 +186,12 @@
  									<td><?php echo $isi['nama']; ?></td>
  									<td><?php echo $isi['jumlah']; ?> </td>
  									<td><?php echo $isi['nama_pemain']; ?></td>
-									<td><?php echo $isi['nama_kasir']; ?></td>
+ 									<td><?php echo $isi['nama_kasir']; ?></td>
  									<td><?php echo $isi['tgl']; ?></td>
-									<td>
-									<a href="fungsi/hapus.php?tambahan=hapus&id=<?php echo $isi['id']; ?>" onclick="javascript:return confirm('Hapus Data Laporan ?');"><button class="btn btn-danger btn-xs">Hapus</button></a>
-									</td>
-								</tr>
+ 									<td>
+ 										<a href="fungsi/hapus.php?tambahan=hapus&id=<?php echo $isi['id']; ?>" onclick="javascript:return confirm('Hapus Data Laporan ?');"><button class="btn btn-danger btn-xs">Hapus</button></a>
+ 									</td>
+ 								</tr>
  							<?php $no++;
 								} ?>
  						</tbody>

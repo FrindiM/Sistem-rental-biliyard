@@ -4,8 +4,9 @@ include '../config.php';
 
 $user = isset($_POST['user']) ? $_POST['user'] : null;
 $date = isset($_POST['date']) ? $_POST['date'] : null;
+$tabel = isset($_POST['tabel']) ? $_POST['tabel'] : null;
 
-$sql = "SELECT * FROM waktu_meja WHERE DATE(tanggal) = '$date' AND kasir = '$user'";
+$sql = "SELECT * FROM waktu_meja WHERE DATE(tanggal) = '$date' AND kasir = '$user' AND nomor_meja = '$tabel'";
 
 $result = $db->query($sql);
 
