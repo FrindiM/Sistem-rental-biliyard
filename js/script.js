@@ -155,30 +155,33 @@ $(document).ready(function () {
 
   $(".start-forward-btn").on("click", function (e) {
     e.preventDefault();
+    let playerName = $(".nama-input").val();
     var form = $(this).closest("form");
+    if (playerName !== '') {
+      stopTimerForwardWithButton(form);
 
-    // Hentikan timer maju jika sedang berjalan
-    stopTimerForwardWithButton(form);
+      // (kode AJAX yang sudah ada)
+      var buttonId = this.id;
+      var datameja = form.find("input[name^=nomor_meja]").val();
+      var tombol1 = "frees_" + datameja;
+      var tombol2 = "mulai_" + datameja;
+      var form1 = "nama_" + datameja;
+      hideButtonById(buttonId);
+      hideButtonById(tombol2);
+      showButtonById(tombol1);
+      var tombol3 = "transaksi_" + datameja;
+      disableButtonById(tombol3);
+      setReadonly(form1);
 
-    // (kode AJAX yang sudah ada)
-    var buttonId = this.id;
-    var datameja = form.find("input[name^=nomor_meja]").val();
-    var tombol1 = "frees_" + datameja;
-    var tombol2 = "mulai_" + datameja;
-    var form1 = "nama_" + datameja;
-    hideButtonById(buttonId);
-    hideButtonById(tombol2);
-    showButtonById(tombol1);
-    var tombol3 = "transaksi_" + datameja;
-    disableButtonById(tombol3);
-    setReadonly(form1);
+      var meja = datameja + "N";
+      // console.log(meja);
+      sendData(meja);
 
-    var meja = datameja + "N";
-    // console.log(meja);
-    sendData(meja);
-
-    // Mulai timer maju
-    startTimerForwardWithButton(form);
+      // Mulai timer maju
+      startTimerForwardWithButton(form);
+    } else {
+      alert("Masukan Nama")
+    }
   });
 
   function stopTimerForwardWithButton(form) {
