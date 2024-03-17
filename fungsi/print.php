@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'config.php';
+require '../config.php';
 date_default_timezone_set('Asia/Makassar'); // Ganti dengan zona waktu yang sesuai
 $nomor = isset($_GET['nomor']) ? $_GET['nomor'] : '';
 $nama = isset($_GET['nama']) ? $_GET['nama'] : '';
