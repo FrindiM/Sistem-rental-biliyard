@@ -26,7 +26,7 @@ async function disconnect() {
   }
 }
 
-console.log("gaga")
+console.log("sasa")
 
 $(document).ready(function () {
   // Mengaktifkan tombol berdasarkan ID
@@ -157,31 +157,49 @@ $(document).ready(function () {
     e.preventDefault();
     let playerName = $(".nama-input").val();
     var form = $(this).closest("form");
-    if (playerName !== '') {
-      stopTimerForwardWithButton(form);
+    let nomorMeja = form.find("input[name^=nomor_meja]").val();
+    $.ajax({
+      type: "post",
+      url: "fungsi/cek_transaksi.php",
+      data: {
+        nomorMeja: nomorMeja,
+      },
+      dataType: "json",
+      success: function (response) {
+        console.log(response)
+        if (response.status === 'success') {
+          alert('Selesaikan Transaksi Sebelumnya!');
+          return false
+        } else {
+          console.log('free');
+          if (playerName !== '') {
+            stopTimerForwardWithButton(form);
 
-      // (kode AJAX yang sudah ada)
-      var buttonId = this.id;
-      var datameja = form.find("input[name^=nomor_meja]").val();
-      var tombol1 = "frees_" + datameja;
-      var tombol2 = "mulai_" + datameja;
-      var form1 = "nama_" + datameja;
-      hideButtonById(buttonId);
-      hideButtonById(tombol2);
-      showButtonById(tombol1);
-      var tombol3 = "transaksi_" + datameja;
-      disableButtonById(tombol3);
-      setReadonly(form1);
+            // (kode AJAX yang sudah ada)
+            var datameja = form.find("input[name^=nomor_meja]").val();
+            var buttonId = "free_" + datameja;
+            var tombol1 = "frees_" + datameja;
+            var tombol2 = "mulai_" + datameja;
+            var form1 = "nama_" + datameja;
+            hideButtonById(buttonId);
+            hideButtonById(tombol2);
+            showButtonById(tombol1);
+            var tombol3 = "transaksi_" + datameja;
+            disableButtonById(tombol3);
+            setReadonly(form1);
 
-      var meja = datameja + "N";
-      // console.log(meja);
-      sendData(meja);
+            var meja = datameja + "N";
+            // console.log(meja);
+            sendData(meja);
 
-      // Mulai timer maju
-      startTimerForwardWithButton(form);
-    } else {
-      alert("Masukan Nama")
-    }
+            // Mulai timer maju
+            startTimerForwardWithButton(form);
+          } else {
+            alert("Masukan Nama")
+          }
+        }
+      }
+    });
   });
 
   function stopTimerForwardWithButton(form) {
